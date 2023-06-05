@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:13.0-alpine
+    env_file:
+      - ./.env
+  
+  app:
+    build:
+      context: .
+    restart: always
+    container_name: fastapi_app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    env_file:
+      - ./.env
